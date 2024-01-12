@@ -2,7 +2,7 @@ Uses AITracker for head tracking and maps the output to key binds that are read 
 The key binds can be configured, as well as the distance you want to lean to activate the key bind.  
 Shoulder transition is also supported when leaning left.
 
-Screen Shot of TarkovMotion: https://imgur.com/a/CVOXI0a
+![TarkovMotion](https://github.com/KCmilam/TarkovMotion/assets/42074461/cf857875-1024-4653-acff-766eba0704ea)
 
 Example video of it in use: https://www.youtube.com/watch?v=9nJXhiv9HWU
 
