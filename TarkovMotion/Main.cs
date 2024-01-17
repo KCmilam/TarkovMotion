@@ -22,6 +22,7 @@ namespace TarkovMotion
 
         public double StartX = -99;
         public double StartY = -99;
+        public double StartYaw = -999;   
 
         public bool _qDown = false;
         public bool _eDown = false;
@@ -34,7 +35,7 @@ namespace TarkovMotion
         public Keys leanLeftKey = Keys.Q;
         public Keys leanRightKey = Keys.E;
 
-        public double triggerDistance = 8;
+        public double triggerDistance = 6;
 
         public bool mirrored = false;
 
@@ -52,6 +53,14 @@ namespace TarkovMotion
             {
                 _eDown = value;
                 ShowTriggerActivation(value);
+                if (value)
+                {
+                    SetActiveKeyPressLabel("E");
+                }
+                else
+                {
+                    SetActiveKeyPressLabel("");
+                }
             }
         }
 
@@ -65,6 +74,14 @@ namespace TarkovMotion
             {
                 _qDown = value;
                 ShowTriggerActivation(value);
+                if (value)
+                {
+                    SetActiveKeyPressLabel("Q");    
+                }
+                else
+                {
+                    SetActiveKeyPressLabel("");
+                }
             }
         }
 
@@ -90,7 +107,6 @@ namespace TarkovMotion
         {
             string activeWindow = ActiveWindowTitleFetcher.GetActiveWindowTitle();
 
-
             if (InvokeRequired)
             {
                 Invoke(new Action(() => ProcessMotionData(sender, e)));
@@ -107,6 +123,10 @@ namespace TarkovMotion
                 StartX = e.X;
                 StartY = e.Y;
             }
+            if (StartYaw == -999)
+            {
+                StartYaw = e.Yaw;
+            }   
 
             double xDiff = StartX - e.X;
             double yDiff = StartY - e.Y;
@@ -120,10 +140,23 @@ namespace TarkovMotion
             DeltaXTextBox.Text = xDiff.ToString();
             DeltaYTextBox.Text = yDiff.ToString();
 
+            //YawLabel.Text = e.Yaw.ToString();
+            //PitchLabel.Text = e.Pitch.ToString();
+            //RollLabel.Text = e.Roll.ToString();
+
             bool triggerKeyBind = true;
             if (!(activeWindow == "EscapeFromTarkov" || activeWindow == "PUBG: BATTLEGROUNDS"))
             {
                 triggerKeyBind = false;
+            }
+
+            if (e.Yaw > 35 || e.Yaw < -35)
+            {
+                if (!EDown && !QDown)
+                {
+                    return;
+                }
+
             }
 
             if (xDiff < -triggerDistance)
@@ -190,6 +223,17 @@ namespace TarkovMotion
             LastX = e.X;
 
             lastProcessed = DateTime.Now;
+        }
+
+        private void SetActiveKeyPressLabel(string key)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => SetActiveKeyPressLabel(key)));
+                return;
+            }
+
+            ActiveKeyPressLabel.Text = "Active Key Press: " + key;
         }
 
         private void ShowTriggerActivation(bool leaning)
@@ -263,6 +307,7 @@ namespace TarkovMotion
         {
             StartX = -99;
             StartY = -99;
+            StartYaw = -999;
         }
 
         private void TransitionShoulderCheckBox_CheckedChanged(object sender, EventArgs e)
