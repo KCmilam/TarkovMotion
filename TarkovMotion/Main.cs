@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,6 +107,8 @@ namespace TarkovMotion
         private void ProcessMotionData(object sender, MotionData e)
         {
             string activeWindow = ActiveWindowTitleFetcher.GetActiveWindowTitle();
+            if (activeWindow != null) { activeWindow = activeWindow.Trim();}
+
 
             if (InvokeRequired)
             {
@@ -145,6 +148,9 @@ namespace TarkovMotion
             //RollLabel.Text = e.Roll.ToString();
 
             bool triggerKeyBind = true;
+
+            ShowActiveWindow(activeWindow);
+
             if (!(activeWindow == "EscapeFromTarkov" || activeWindow == "PUBG: BATTLEGROUNDS"))
             {
                 triggerKeyBind = false;
@@ -345,6 +351,17 @@ namespace TarkovMotion
         private void MirroredCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             mirrored = MirroredCheckBox.Checked;
+        }
+
+        private void ShowActiveWindow(string activeWindow)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => ShowActiveWindow(activeWindow)));
+                return;
+            }
+
+            label6.Text = "Active Window: " + activeWindow;
         }
     }
 }

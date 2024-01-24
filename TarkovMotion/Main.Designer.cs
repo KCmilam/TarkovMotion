@@ -43,9 +43,8 @@
             this.LeanRightTextBox = new System.Windows.Forms.TextBox();
             this.MirroredCheckBox = new System.Windows.Forms.CheckBox();
             this.YawLabel = new System.Windows.Forms.Label();
-            this.PitchLabel = new System.Windows.Forms.Label();
-            this.RollLabel = new System.Windows.Forms.Label();
             this.ActiveKeyPressLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DeltaXTextBox
@@ -181,24 +180,6 @@
             this.YawLabel.TabIndex = 20;
             this.YawLabel.Text = "X Dist:";
             // 
-            // PitchLabel
-            // 
-            this.PitchLabel.AutoSize = true;
-            this.PitchLabel.Location = new System.Drawing.Point(22, 293);
-            this.PitchLabel.Name = "PitchLabel";
-            this.PitchLabel.Size = new System.Drawing.Size(38, 13);
-            this.PitchLabel.TabIndex = 21;
-            this.PitchLabel.Text = "X Dist:";
-            // 
-            // RollLabel
-            // 
-            this.RollLabel.AutoSize = true;
-            this.RollLabel.Location = new System.Drawing.Point(22, 320);
-            this.RollLabel.Name = "RollLabel";
-            this.RollLabel.Size = new System.Drawing.Size(38, 13);
-            this.RollLabel.TabIndex = 22;
-            this.RollLabel.Text = "X Dist:";
-            // 
             // ActiveKeyPressLabel
             // 
             this.ActiveKeyPressLabel.AutoSize = true;
@@ -208,15 +189,23 @@
             this.ActiveKeyPressLabel.TabIndex = 23;
             this.ActiveKeyPressLabel.Text = "Active Key Press: ";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 299);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "X Dist:";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(192, 266);
+            this.ClientSize = new System.Drawing.Size(192, 265);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.ActiveKeyPressLabel);
-            this.Controls.Add(this.RollLabel);
-            this.Controls.Add(this.PitchLabel);
             this.Controls.Add(this.YawLabel);
             this.Controls.Add(this.MirroredCheckBox);
             this.Controls.Add(this.label5);
@@ -256,9 +245,8 @@
         private System.Windows.Forms.TextBox LeanRightTextBox;
         private System.Windows.Forms.CheckBox MirroredCheckBox;
         private System.Windows.Forms.Label YawLabel;
-        private System.Windows.Forms.Label PitchLabel;
-        private System.Windows.Forms.Label RollLabel;
         private System.Windows.Forms.Label ActiveKeyPressLabel;
+        private System.Windows.Forms.Label label6;
     }
 }
 
