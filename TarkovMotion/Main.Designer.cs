@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.DeltaXTextBox = new System.Windows.Forms.TextBox();
-            this.DeltaYTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TriggerDistanceTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,29 +41,28 @@
             this.label5 = new System.Windows.Forms.Label();
             this.LeanRightTextBox = new System.Windows.Forms.TextBox();
             this.MirroredCheckBox = new System.Windows.Forms.CheckBox();
-            this.YawLabel = new System.Windows.Forms.Label();
             this.ActiveKeyPressLabel = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.SettingsButton = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DeltaXTextBox
             // 
-            this.DeltaXTextBox.Location = new System.Drawing.Point(109, 120);
+            this.DeltaXTextBox.Location = new System.Drawing.Point(113, 122);
             this.DeltaXTextBox.Name = "DeltaXTextBox";
             this.DeltaXTextBox.Size = new System.Drawing.Size(60, 20);
             this.DeltaXTextBox.TabIndex = 4;
             // 
-            // DeltaYTextBox
-            // 
-            this.DeltaYTextBox.Location = new System.Drawing.Point(364, 264);
-            this.DeltaYTextBox.Name = "DeltaYTextBox";
-            this.DeltaYTextBox.Size = new System.Drawing.Size(76, 20);
-            this.DeltaYTextBox.TabIndex = 6;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 96);
+            this.label3.Location = new System.Drawing.Point(23, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 13);
             this.label3.TabIndex = 8;
@@ -72,16 +70,16 @@
             // 
             // TriggerDistanceTextBox
             // 
-            this.TriggerDistanceTextBox.Location = new System.Drawing.Point(109, 94);
+            this.TriggerDistanceTextBox.Location = new System.Drawing.Point(113, 96);
             this.TriggerDistanceTextBox.Name = "TriggerDistanceTextBox";
             this.TriggerDistanceTextBox.Size = new System.Drawing.Size(60, 20);
             this.TriggerDistanceTextBox.TabIndex = 7;
-            this.TriggerDistanceTextBox.TextChanged += new System.EventHandler(this.TriggerDistanceTextBox_TextChanged);
+            this.TriggerDistanceTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TriggerDistanceTextBox_KeyUp);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(67, 123);
+            this.label4.Location = new System.Drawing.Point(71, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 13);
             this.label4.TabIndex = 9;
@@ -90,7 +88,7 @@
             // 
             // CenterButton
             // 
-            this.CenterButton.Location = new System.Drawing.Point(99, 238);
+            this.CenterButton.Location = new System.Drawing.Point(103, 240);
             this.CenterButton.Name = "CenterButton";
             this.CenterButton.Size = new System.Drawing.Size(70, 23);
             this.CenterButton.TabIndex = 10;
@@ -101,7 +99,7 @@
             // TransitionShoulderCheckBox
             // 
             this.TransitionShoulderCheckBox.AutoSize = true;
-            this.TransitionShoulderCheckBox.Location = new System.Drawing.Point(64, 159);
+            this.TransitionShoulderCheckBox.Location = new System.Drawing.Point(68, 161);
             this.TransitionShoulderCheckBox.Name = "TransitionShoulderCheckBox";
             this.TransitionShoulderCheckBox.Size = new System.Drawing.Size(117, 17);
             this.TransitionShoulderCheckBox.TabIndex = 12;
@@ -112,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 185);
+            this.label1.Location = new System.Drawing.Point(14, 187);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 14;
@@ -120,7 +118,7 @@
             // 
             // TransitionKeybind
             // 
-            this.TransitionKeybind.Location = new System.Drawing.Point(109, 182);
+            this.TransitionKeybind.Location = new System.Drawing.Point(113, 184);
             this.TransitionKeybind.Name = "TransitionKeybind";
             this.TransitionKeybind.Size = new System.Drawing.Size(60, 20);
             this.TransitionKeybind.TabIndex = 13;
@@ -129,7 +127,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 34);
+            this.label2.Location = new System.Drawing.Point(34, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 16;
@@ -137,7 +135,7 @@
             // 
             // LeanLeftTextBox
             // 
-            this.LeanLeftTextBox.Location = new System.Drawing.Point(109, 31);
+            this.LeanLeftTextBox.Location = new System.Drawing.Point(113, 33);
             this.LeanLeftTextBox.Name = "LeanLeftTextBox";
             this.LeanLeftTextBox.Size = new System.Drawing.Size(60, 20);
             this.LeanLeftTextBox.TabIndex = 15;
@@ -146,7 +144,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 60);
+            this.label5.Location = new System.Drawing.Point(27, 62);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 13);
             this.label5.TabIndex = 18;
@@ -154,7 +152,7 @@
             // 
             // LeanRightTextBox
             // 
-            this.LeanRightTextBox.Location = new System.Drawing.Point(109, 57);
+            this.LeanRightTextBox.Location = new System.Drawing.Point(113, 59);
             this.LeanRightTextBox.Name = "LeanRightTextBox";
             this.LeanRightTextBox.Size = new System.Drawing.Size(60, 20);
             this.LeanRightTextBox.TabIndex = 17;
@@ -163,7 +161,7 @@
             // MirroredCheckBox
             // 
             this.MirroredCheckBox.AutoSize = true;
-            this.MirroredCheckBox.Location = new System.Drawing.Point(105, 215);
+            this.MirroredCheckBox.Location = new System.Drawing.Point(109, 217);
             this.MirroredCheckBox.Name = "MirroredCheckBox";
             this.MirroredCheckBox.Size = new System.Drawing.Size(64, 17);
             this.MirroredCheckBox.TabIndex = 19;
@@ -171,67 +169,99 @@
             this.MirroredCheckBox.UseVisualStyleBackColor = true;
             this.MirroredCheckBox.CheckedChanged += new System.EventHandler(this.MirroredCheckBox_CheckedChanged);
             // 
-            // YawLabel
-            // 
-            this.YawLabel.AutoSize = true;
-            this.YawLabel.Location = new System.Drawing.Point(22, 270);
-            this.YawLabel.Name = "YawLabel";
-            this.YawLabel.Size = new System.Drawing.Size(38, 13);
-            this.YawLabel.TabIndex = 20;
-            this.YawLabel.Text = "X Dist:";
-            // 
             // ActiveKeyPressLabel
             // 
             this.ActiveKeyPressLabel.AutoSize = true;
-            this.ActiveKeyPressLabel.Location = new System.Drawing.Point(30, 9);
+            this.ActiveKeyPressLabel.Location = new System.Drawing.Point(34, 11);
             this.ActiveKeyPressLabel.Name = "ActiveKeyPressLabel";
             this.ActiveKeyPressLabel.Size = new System.Drawing.Size(93, 13);
             this.ActiveKeyPressLabel.TabIndex = 23;
             this.ActiveKeyPressLabel.Text = "Active Key Press: ";
             // 
-            // label6
+            // toolStripContainer1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 299);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "X Dist:";
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.SaveButton);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.LeanLeftTextBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.ActiveKeyPressLabel);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.DeltaXTextBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.MirroredCheckBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.TriggerDistanceTextBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label5);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label3);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.LeanRightTextBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label4);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label2);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.CenterButton);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.TransitionShoulderCheckBox);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.TransitionKeybind);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(207, 303);
+            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            this.toolStripContainer1.Size = new System.Drawing.Size(207, 328);
+            this.toolStripContainer1.TabIndex = 24;
+            this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(103, 269);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(70, 23);
+            this.SaveButton.TabIndex = 24;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SettingsButton});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(61, 25);
+            this.toolStrip1.TabIndex = 0;
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(49, 22);
+            this.SettingsButton.Text = "Settings";
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(192, 265);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.ActiveKeyPressLabel);
-            this.Controls.Add(this.YawLabel);
-            this.Controls.Add(this.MirroredCheckBox);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.LeanRightTextBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.LeanLeftTextBox);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.TransitionKeybind);
-            this.Controls.Add(this.TransitionShoulderCheckBox);
-            this.Controls.Add(this.CenterButton);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.TriggerDistanceTextBox);
-            this.Controls.Add(this.DeltaYTextBox);
-            this.Controls.Add(this.DeltaXTextBox);
+            this.ClientSize = new System.Drawing.Size(207, 328);
+            this.Controls.Add(this.toolStripContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Main";
             this.Text = "Tarkov Motion";
+            this.Load += new System.EventHandler(this.Main_Load);
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.ContentPanel.PerformLayout();
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.TextBox DeltaXTextBox;
-        private System.Windows.Forms.TextBox DeltaYTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TriggerDistanceTextBox;
         private System.Windows.Forms.Label label4;
@@ -244,9 +274,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox LeanRightTextBox;
         private System.Windows.Forms.CheckBox MirroredCheckBox;
-        private System.Windows.Forms.Label YawLabel;
         private System.Windows.Forms.Label ActiveKeyPressLabel;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel SettingsButton;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 

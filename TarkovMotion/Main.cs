@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -30,15 +31,7 @@ namespace TarkovMotion
 
         public double lastYUpdate = 0;
 
-        public bool transitionShoulder = true;
         public bool shoulderTransitioned = false;
-        public Keys shoulderKey = Keys.Divide;
-        public Keys leanLeftKey = Keys.Q;
-        public Keys leanRightKey = Keys.E;
-
-        public double triggerDistance = 6;
-
-        public bool mirrored = false;
 
         public Color initialBackColor;
 
@@ -92,16 +85,64 @@ namespace TarkovMotion
 
             initialBackColor = this.BackColor;
 
-            TriggerDistanceTextBox.Text = triggerDistance.ToString();
-            TransitionShoulderCheckBox.Checked = transitionShoulder;
-            TransitionKeybind.Text = shoulderKey.ToString();
-            LeanLeftTextBox.Text = leanLeftKey.ToString();
-            LeanRightTextBox.Text = leanRightKey.ToString();
+            TriggerDistanceTextBox.Text = Settings.Instance.TriggerDistance.ToString();
+            TransitionShoulderCheckBox.Checked = Settings.Instance.ShoulderTransition;
+            TransitionKeybind.Text = Settings.Instance.ShoulderTransitionKey.ToString();
+            LeanLeftTextBox.Text = Settings.Instance.LeftLeanKey.ToString();
+            LeanRightTextBox.Text = Settings.Instance.RightLeanKey.ToString();
 
             MotionDataRecievedEvent += ProcessMotionData;
 
             //Create a call to the sub Listen() that runs continuously in a separate thread.
             Task.Run(() => Listen());
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            if (Settings.Instance.LaunchProgramsOnstart)
+            {
+                //Check if Settings.Instance.AITrackerEXEPath is already running. If not, start it.
+                if (Settings.Instance.AITrackerEXEPath != "" && !Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Settings.Instance.AITrackerEXEPath)).Any())
+                {
+                    string programPath = Settings.Instance.AITrackerEXEPath;
+                    string workingDirectory = System.IO.Path.GetDirectoryName(programPath);
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(programPath);
+                    startInfo.WorkingDirectory = workingDirectory;
+
+                    Process.Start(startInfo);
+                }
+
+                if (Settings.Instance.TarkovMonitorEXEPath != "" && !Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(Settings.Instance.TarkovMonitorEXEPath)).Any())
+                {
+                    string programPath = Settings.Instance.TarkovMonitorEXEPath;
+                    string workingDirectory = System.IO.Path.GetDirectoryName(programPath);
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(programPath);
+                    startInfo.WorkingDirectory = workingDirectory;
+
+                    Process.Start(startInfo);
+
+                }
+                if (Settings.Instance.Browser == "Chrome")
+                {
+                    //Launch chrome and go to https://tarkov.dev/maps
+                    Process.Start("chrome.exe", "https://tarkov.dev/maps");
+                    Process.Start("chrome.exe", "https://tarkovtracker.io/tasks");
+                }
+                else if (Settings.Instance.Browser == "Firefox")
+                {
+                    //Launch firefox and go to https://tarkov.dev/maps
+                    Process.Start("firefox.exe", "https://tarkov.dev/maps");
+                    Process.Start("firefox.exe", "https://tarkovtracker.io/tasks");
+                }
+                else if (Settings.Instance.Browser == "Edge")
+                {
+                    //Launch Edge and go to https://tarkov.dev/maps
+                    Process.Start("microsoft-edge:https://tarkov.dev/maps");
+                    Process.Start("microsoft-edge:https://tarkovtracker.io/tasks");
+                }       
+            }
         }
 
         private void ProcessMotionData(object sender, MotionData e)
@@ -134,14 +175,13 @@ namespace TarkovMotion
             double xDiff = StartX - e.X;
             double yDiff = StartY - e.Y;
 
-            if (mirrored)
+            if (Settings.Instance.Mirrored )
             {
                 xDiff = e.X - StartX;
                 yDiff = e.Y - StartY;
             }
 
             DeltaXTextBox.Text = xDiff.ToString();
-            DeltaYTextBox.Text = yDiff.ToString();
 
             //YawLabel.Text = e.Yaw.ToString();
             //PitchLabel.Text = e.Pitch.ToString();
@@ -165,37 +205,37 @@ namespace TarkovMotion
 
             }
 
-            if (xDiff < -triggerDistance)
+            if (xDiff > Settings.Instance.TriggerDistance)
             {
                 if (!EDown)
                 {
                     if (triggerKeyBind)
                     {
-                        if (shoulderTransitioned && transitionShoulder)
+                        if (shoulderTransitioned && Settings.Instance.ShoulderTransition)
                         {
-                            KeyboardSimulator.PressKey(shoulderKey, false);
-                            KeyboardSimulator.PressKey(shoulderKey, true);
+                            KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, false);
+                            KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, true);
                             shoulderTransitioned = false;
                         }
-                        KeyboardSimulator.PressKey(leanRightKey, false);
+                        KeyboardSimulator.PressKey(Settings.Instance.RightLeanKey, false);
                     }
                     EDown = true;
                 }
             }
-            else if (xDiff > triggerDistance)
+            else if (xDiff < -Settings.Instance.TriggerDistance)
             {
                 if (!QDown)
                 {
                     if (triggerKeyBind)
                     {
-                        if (!shoulderTransitioned && transitionShoulder)
+                        if (!shoulderTransitioned && Settings.Instance.ShoulderTransition)
                         {
-                            KeyboardSimulator.PressKey(shoulderKey, false);
-                            KeyboardSimulator.PressKey(shoulderKey, true);
+                            KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, false);
+                            KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, true);
                             shoulderTransitioned = true;
                         }
 
-                        KeyboardSimulator.PressKey(leanLeftKey, false);
+                        KeyboardSimulator.PressKey(Settings.Instance.LeftLeanKey, false);
                     }
                     QDown = true;
                 }
@@ -205,7 +245,7 @@ namespace TarkovMotion
             {
                 if (triggerKeyBind)
                 {
-                    KeyboardSimulator.PressKey(leanRightKey, true);
+                    KeyboardSimulator.PressKey(Settings.Instance.RightLeanKey , true);
                 }
                 EDown = false;
             }
@@ -213,14 +253,14 @@ namespace TarkovMotion
             {
                 if (triggerKeyBind)
                 {
-                    if (shoulderTransitioned && transitionShoulder)
+                    if (shoulderTransitioned && Settings.Instance.ShoulderTransition)
                     {
-                        KeyboardSimulator.PressKey(shoulderKey, false);
-                        KeyboardSimulator.PressKey(shoulderKey, true);
+                        KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, false);
+                        KeyboardSimulator.PressKey(Settings.Instance.ShoulderTransitionKey, true);
                         shoulderTransitioned = false;
                     }
 
-                    KeyboardSimulator.PressKey(leanLeftKey, true);
+                    KeyboardSimulator.PressKey(Settings.Instance.LeftLeanKey, true);
                 }
                 QDown = false;
             }
@@ -296,14 +336,6 @@ namespace TarkovMotion
             }
         }
 
-        private void TriggerDistanceTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (int.TryParse(TriggerDistanceTextBox.Text, out int triggerDistanceInt))
-            {
-                triggerDistance = triggerDistanceInt;
-            }
-        }
-
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -318,39 +350,7 @@ namespace TarkovMotion
 
         private void TransitionShoulderCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            transitionShoulder = TransitionShoulderCheckBox.Checked;
-        }
-
-        private void TransitionKeybind_KeyUp(object sender, KeyEventArgs e)
-        {
-            shoulderKey = e.KeyCode;
-            if (TransitionKeybind.Text != shoulderKey.ToString())
-            {
-                TransitionKeybind.Text = shoulderKey.ToString();
-            }
-        }
-
-        private void LeanLeftTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            leanLeftKey = e.KeyCode;
-            if (LeanLeftTextBox.Text != leanLeftKey.ToString())
-            {
-                LeanLeftTextBox.Text = leanLeftKey.ToString();
-            }
-        }
-
-        private void LeanRightTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            leanRightKey = e.KeyCode;
-            if (LeanRightTextBox.Text != leanRightKey.ToString())
-            {
-                LeanRightTextBox.Text = leanRightKey.ToString();
-            }
-        }
-
-        private void MirroredCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            mirrored = MirroredCheckBox.Checked;
+            Settings.Instance.ShoulderTransition  = TransitionShoulderCheckBox.Checked;
         }
 
         private void ShowActiveWindow(string activeWindow)
@@ -360,8 +360,60 @@ namespace TarkovMotion
                 Invoke(new Action(() => ShowActiveWindow(activeWindow)));
                 return;
             }
-
-            label6.Text = "Active Window: " + activeWindow;
         }
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            Settings.Save();
+            MessageBox.Show("Settings Saved!"); 
+        }
+
+        private void LeanLeftTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            Settings.Instance.LeftLeanKey  = e.KeyCode;
+            if (LeanLeftTextBox.Text != Settings.Instance.LeftLeanKey.ToString())
+            {
+                LeanLeftTextBox.Text = Settings.Instance.LeftLeanKey.ToString();
+            }
+        }
+
+        private void LeanRightTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            Settings.Instance.RightLeanKey = e.KeyCode;
+            if (LeanRightTextBox.Text != Settings.Instance.RightLeanKey.ToString())
+            {
+                LeanRightTextBox.Text = Settings.Instance.RightLeanKey.ToString();
+            }
+        }
+
+        private void TriggerDistanceTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (int.TryParse(TriggerDistanceTextBox.Text, out int triggerDistanceInt))
+            {
+                Settings.Instance.TriggerDistance = triggerDistanceInt;
+            }
+        }
+
+        private void TransitionKeybind_KeyUp(object sender, KeyEventArgs e)
+        {
+            Settings.Instance.ShoulderTransitionKey = e.KeyCode;
+            if (TransitionKeybind.Text != Settings.Instance.ShoulderTransitionKey.ToString())
+            {
+                TransitionKeybind.Text = Settings.Instance.ShoulderTransitionKey.ToString();
+            }
+        }
+
+        private void MirroredCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.Mirrored  = MirroredCheckBox.Checked;
+        }
+
+
     }
 }
