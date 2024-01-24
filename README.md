@@ -15,8 +15,7 @@ Example video of it in use: https://www.youtube.com/watch?v=9nJXhiv9HWU
 
 **Notes**
 
-* A resolution of 720p or higher is recommended for the webcam
-* Sufficient lighting is need in the room for AITracker to track the face.
+* Sufficient lighting is needed in the room for AITracker to track the face.
 * The program only sends the keybinds when Escape From Tarkov is focused.
 * It's suggested to sit center of screen and look at the center of the screen and click the "Recenter" button. This will set the base point that the app will use to calculate lean distance and trigger the key bind.
 * AITracker outputs to the local IP address using UDP so it requests access to the local network.
